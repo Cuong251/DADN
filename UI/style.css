@@ -1,131 +1,130 @@
-/* General Styles */
+/* Background */
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
 
-body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Header */
-  
-  .header {
-    position: relative;
-    height: 123px;
-    background-image: url(UI/Imgs/background.jpg);
-    background-size: cover;
-  }
-  
-  .logo {
-    position: absolute;
-    width: 107.92px;
-    height: 100px;
-    left: 1331px;
-    top: 0;
-  }
-  
-  .logo img {
-    width: 100%;
-    height: 100%;
-  }
-  
-  .header-text {
-    position: absolute;
-    width: 106px;
-    height: 23px;
-    left: 1334px;
-    top: 100px;
-    font-family: 'Barlow', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 24px;
-    letter-spacing: 0.135em;
-    color: #277720;
-  }
-  
-  /* Navigation */
-  
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: absolute;
-    width: 557px;
-    height: 24px;
-    left: 462px;
-    top: 38px;
-  }
-  
-  .nav a {
-    font-family: 'Barlow', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.135em;
-    color: #277720;
-    padding-right: 20px;
-    transition: color 0.3s ease;
-  }
-  
-  .nav a:hover {
-    color: #7A04F2;
-  }
-  
-  /* Button */
-  
-  .btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 385px;
-    height: 69px;
-    background: #7A04F2;
-    border-radius: 20px;
-    margin: 0 auto;
-    margin-top: 100px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  
-  .btn:hover {
-    background: #B58DE8;
-  }
-  
-  .btn-text {
-    font-family: 'Barlow', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
-    letter-spacing: 0.135em;
-    color: #FFFFFF;
-  }
-  
-  /* Footer */
-  
-  .footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333333;
-  }
-  
-  .footer-text {
-    font-family: 'Barlow', sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.135em;
-    color: #FFFFFF;
-  }
+.background img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Logo */
+.logo {
+	position: absolute;
+	top: 0;
+	left: 1331px;
+	width: 107.92px;
+	height: 100px;
+}
+
+.logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+/* Logo Text */
+.logo-text {
+	position: absolute;
+	top: 100px;
+	left: 1334px;
+	width: 106px;
+	height: 23px;
+	font-family: 'Barlow';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: 0.135em;
+	color: #277720;
+}
+
+/* Menu */
+.menu {
+	position: absolute;
+	top: 38px;
+	left: 462px;
+	width: 557px;
+	height: 24px;
+}
+
+.menu ul {
+	list-style: none;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu li {
+	font-family: 'Barlow';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
+	letter-spacing: 0.135em;
+	color: #277720;
+}
+
+.menu li a {
+	color: #277720;
+	text-decoration: none;
+}
+
+.menu li a:hover {
+	color: #7A04F2;
+}
+
+/* Button */
+.button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	top: 380px;
+	left: 420px;
+	width: 385px;
+	height: 69px;
+	background: #7A04F2;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.button div {
+	flex: none;
+	order: 0;
+	flex-grow: 0;
+}
+
+.button p {
+	font-family: 'Barlow';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: 0.135em;
+	color: #FFFFFF;
+}
+
+/* Footer */
+.footer {
+	position: absolute;
+	bottom: 15px;
+	left: 1085px;
+	width: 338px;
+	height: 20px;
+	font-family: 'Barlow';
+	font-style: normal;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: 0.135em;
+	color: #FFFFFF;
+}

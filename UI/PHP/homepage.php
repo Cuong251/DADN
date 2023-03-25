@@ -6,12 +6,12 @@
 </head>
 <body>
 	<div class="background">
-	   <img src="../UI/Imgs/background.jpg">
+		<img src="/DADN/UI/Imgs/background.jpg">
 	</div>
 	<div class="logo">
-		<img src="UI/Imgs/logo.png">
+		<img src="/DADN/UI/Imgs/logo.png">
 	</div>
-	<div class="text">
+	<div class="logo-text">
 		<p>TRE VIET</p>
 	</div>
 	<div class="menu">
