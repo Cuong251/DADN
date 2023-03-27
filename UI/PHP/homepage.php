@@ -2,11 +2,11 @@
 <html>
 <head>
 	<title>Smart Home</title>
-	<link rel="stylesheet" type="text/css" href="../style.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost/DADN/UI/style.css">
 </head>
 <body>
 	<div class="background">
-		<img src="/DADN/UI/Imgs/background.jpg">
+	<img src="/DADN/UI/Imgs/homepage_background.jpg">
 	</div>
 	<div class="logo">
 		<img src="/DADN/UI/Imgs/logo.png">
