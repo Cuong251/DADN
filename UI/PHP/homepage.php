@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Smart Home</title>
-	<link rel="stylesheet" type="text/css" href="http://localhost/DADN/UI/style.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost/DADN/UI/CSS/homepage.css">
 </head>
 <body>
 	<div class="background">
@@ -23,7 +23,7 @@
 		</ul>
 	</div>
 	<div class="button">
-		<a href="#">
+		<a href="login.php">
 			<div>
 				<p>CLICK TO CONTROL YOUR HOME</p>
 			</div>
