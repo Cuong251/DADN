@@ -2,7 +2,7 @@
 <html>
 <head>
 	<title>Smart Home</title>
-	<link rel="stylesheet" type="text/css" href="http://localhost/SmartHome/UI/style.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost/SmartHome/UI/CSS/homepage.css">
 </head>
 <body>
 	<div class="background">
