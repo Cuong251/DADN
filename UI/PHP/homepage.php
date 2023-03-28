@@ -2,14 +2,14 @@
 <html>
 <head>
 	<title>Smart Home</title>
-	<link rel="stylesheet" type="text/css" href="http://localhost/DADN/UI/style.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost/SmartHome/UI/style.css">
 </head>
 <body>
 	<div class="background">
-	<img src="/DADN/UI/Imgs/homepage_background.jpg">
+	<img src="/SmartHome/UI/Imgs/homepage_background.jpg">
 	</div>
 	<div class="logo">
-		<img src="/DADN/UI/Imgs/logo.png">
+		<img src="/SmartHome/UI/Imgs/logo.png">
 	</div>
 	<div class="logo-text">
 		<p>TRE VIET</p>
