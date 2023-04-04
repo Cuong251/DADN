@@ -2,14 +2,14 @@
 <html>
   <head>
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost/SmartHome/UI/CSS/login.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/DADN/UI/CSS/login.css">
   </head>
   <body>
   <div class="background">
-	<img src="/SmartHome/UI/Imgs/login_background.jpg">
+	<img src="/DADN/UI/Imgs/login_background.jpg">
 	</div>
     <div class="content">
-      <img src="/SmartHome/UI/Imgs/logo.png" alt="House Logo" class="logo">
+      <img src="/DADN/UI/Imgs/logo.png" alt="House Logo" class="logo">
       <h1>Welcome home</h1>
       <form>
         <div class="input-group">
