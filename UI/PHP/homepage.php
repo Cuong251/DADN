@@ -23,7 +23,7 @@
 		</ul>
 	</div>
 	<div class="button">
-		<a href="login.php">
+		<a href="UserDashboard.php">
 			<div>
 				<p>CLICK TO CONTROL YOUR HOME</p>
 			</div>
