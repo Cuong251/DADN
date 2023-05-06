@@ -36,7 +36,7 @@ echo "
     <p><strong>Email:</strong> $email</p>
     <p><strong>Phone:</strong> $phone</p>
     <p><strong>Birthday:</strong> $birthday</p>
-    <a href='#'>View your home</a>
+    <a href='rooms.php'>View your home</a>
 ";
 ?>
 </body>

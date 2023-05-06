@@ -58,9 +58,32 @@ CREATE TABLE sensor_readings (
 
 /*---------------ADD DATA-----------------*/
 
+/*-----------User--------------*/
 INSERT INTO users (username, password, firstname, lastname, email, gender, birthday, country, phone_number) VALUES 
 ('trong', '123456', 'Trong', 'Nguyen Van', 'trong@gmail.com', 'male', '2002-01-01', 'Vietnam', '0123456789'),
 ('tan', '123456', 'Tan', 'Tran Minh', 'tan@gmail.com', 'male', '2002-02-02', 'Vietnam', '0123456798'),
 ('thinh', '123456', 'Thinh', 'Nguyen Quoc', 'thinh@gmail.com', 'male', '2002-03-03', 'Vietnam', '0213456789'),
 ('cuong', '123456', 'Cuong', 'Mai Le', 'cuong@gmail.com', 'male', '2002-04-04', 'Vietnam', '0231456789');
 
+/*---------------House-----------------*/
+INSERT INTO houses (name, address)
+VALUES ('KTX', 'Thu duc, HCM');
+
+/*---------------User/House-----------------*/
+INSERT INTO user_house (user_id, house_id)
+VALUES (1, (SELECT id FROM houses WHERE name = 'KTX' AND address = 'Thu duc, HCM'));
+
+/*---------------Room-----------------*/
+INSERT INTO rooms (name, house_id)
+VALUES ('Living room', (SELECT id FROM houses WHERE name = 'KTX'));
+
+/*---------------Devices-----------------*/
+INSERT INTO sensors (name, type)
+VALUES ('camera', 'button'),
+       ('temperature', 'number'),
+       ('light', 'number');
+
+INSERT INTO devices (name, room_id, sensor_id)
+VALUES ('Camera 1', (SELECT id FROM rooms WHERE name = 'Living room' AND house_id = (SELECT id FROM houses WHERE name = 'KTX' AND address = 'Thu duc, HCM')), (SELECT id FROM sensors WHERE name = 'camera')),
+       ('Thermometer 1', (SELECT id FROM rooms WHERE name = 'Living room' AND house_id = (SELECT id FROM houses WHERE name = 'KTX' AND address = 'Thu duc, HCM')), (SELECT id FROM sensors WHERE name = 'temperature')),
+       ('Light sensor 1', (SELECT id FROM rooms WHERE name = 'Living room' AND house_id = (SELECT id FROM houses WHERE name = 'KTX' AND address = 'Thu duc, HCM')), (SELECT id FROM sensors WHERE name = 'light'));
