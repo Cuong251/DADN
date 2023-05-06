@@ -1,3 +1,4 @@
+/*-------------CREATE TABLE--------------*/
 CREATE TABLE users (
   id INT PRIMARY KEY AUTO_INCREMENT,
   username VARCHAR(50) NOT NULL,
@@ -46,3 +47,20 @@ CREATE TABLE user_house (
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (house_id) REFERENCES houses(id)
 );
+
+CREATE TABLE sensor_readings (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  device_id INT NOT NULL,
+  timestamp DATETIME NOT NULL,
+  value FLOAT NOT NULL,
+  FOREIGN KEY (device_id) REFERENCES devices(id)
+);
+
+/*---------------ADD DATA-----------------*/
+
+INSERT INTO users (username, password, firstname, lastname, email, gender, birthday, country, phone_number) VALUES 
+('trong', '123456', 'Trong', 'Nguyen Van', 'trong@gmail.com', 'male', '2002-01-01', 'Vietnam', '0123456789'),
+('tan', '123456', 'Tan', 'Tran Minh', 'tan@gmail.com', 'male', '2002-02-02', 'Vietnam', '0123456798'),
+('thinh', '123456', 'Thinh', 'Nguyen Quoc', 'thinh@gmail.com', 'male', '2002-03-03', 'Vietnam', '0213456789'),
+('cuong', '123456', 'Cuong', 'Mai Le', 'cuong@gmail.com', 'male', '2002-04-04', 'Vietnam', '0231456789');
+
