@@ -1,119 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Add Device</title>
-</head>
-<body>
-	<h1>Add Device</h1>
+<?php
+// Database connection
+$db_host = 'localhost';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'smart_home';
 
-	<?php
-		// Connect to database
-		$host = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "smart_home";
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
-		$conn = mysqli_connect($host, $username, $password, $dbname);
+// Check if form was submitted
+if (isset($_POST["submit"])) {
+    // Get form data
+    $device_name = $_POST["device_name"];
+    $feed_name = $_POST["feed_name"];
+    $room_id = $_POST["room_id"];
+    $sensor_id = $_POST["sensor_id"];
 
-		if (!$conn) {
-			die("Connection failed: " . mysqli_connect_error());
-		}
+    // Insert new device into database
+    $stmt = $conn->prepare("INSERT INTO devices (name, feed_name, room_id, sensor_id) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssii", $device_name, $feed_name, $room_id, $sensor_id);
+    if ($stmt->execute()) {
+        echo "New device added successfully";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    $stmt->close();
+}
 
-		// Fetch house data
-		$sql = "SELECT id, name, address FROM houses";
-		$result = mysqli_query($conn, $sql);
+?>
 
-		if (mysqli_num_rows($result) > 0) {
-			$houses = array();
+<h1>Add Device</h1>
 
-			while ($row = mysqli_fetch_assoc($result)) {
-				$houses[] = $row;
-			}
-		} else {
-			echo "No houses found. Please add a house first.";
-			exit();
-		}
+<form method="post">
+    <label for="device_name">Device Name:</label><br>
+    <input type="text" id="device_name" name="device_name"><br>
 
-		// Fetch room data
-		$sql = "SELECT id, name, house_id FROM rooms";
-		$result = mysqli_query($conn, $sql);
+    <label for="feed_name">Feed Name:</label><br>
+    <input type="text" id="feed_name" name="feed_name"><br>
 
-		if (mysqli_num_rows($result) > 0) {
-			$rooms = array();
+    <label for="room_id">Room:</label><br>
+    <select id="room_id" name="room_id">
+        <?php
+        // Get all rooms from database
+        $sql = "SELECT r.id AS room_id, r.name AS room_name, h.name AS house_name FROM rooms r JOIN houses h ON r.house_id = h.id";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row["room_id"] . "'>" . $row["house_name"] . " - " . $row["room_name"] . "</option>";
+            }
+        }
+        ?>
+    </select><br>
 
-			while ($row = mysqli_fetch_assoc($result)) {
-				$rooms[] = $row;
-			}
-		} else {
-			echo "No rooms found. Please add a room first.";
-			exit();
-		}
+    <label for="sensor_id">Sensor:</label><br>
+    <select id="sensor_id" name="sensor_id">
+        <?php
+        // Get all sensors from database
+        $sql = "SELECT id, name FROM sensors";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                echo "<option value='" . $row["id"] . "'>" . $row["name"] . "</option>";
+            }
+        }
+        ?>
+    </select><br>
 
-		// Fetch sensor data
-		$sql = "SELECT id, name, type FROM sensors";
-		$result = mysqli_query($conn, $sql);
-
-		if (mysqli_num_rows($result) > 0) {
-			$sensors = array();
-
-			while ($row = mysqli_fetch_assoc($result)) {
-				$sensors[] = $row;
-			}
-		} else {
-			echo "No sensors found. Please add a sensor first.";
-			exit();
-		}
-
-		// Close database connection
-		mysqli_close($conn);
-
-		// Handle form submission
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			// Get form data
-			$name = $_POST["name"];
-			$room_id = $_POST["room_id"];
-			$sensor_id = $_POST["sensor_id"];
-
-			// Connect to database
-			$conn = mysqli_connect($host, $username, $password, $dbname);
-
-			if (!$conn) {
-				die("Connection failed: " . mysqli_connect_error());
-			}
-
-			// Insert new device into database
-			$sql = "INSERT INTO devices (name, room_id, sensor_id) VALUES ('$name', '$room_id', '$sensor_id')";
-
-			if (mysqli_query($conn, $sql)) {
-				echo "Device added successfully.";
-			} else {
-				echo "Error adding device: " . mysqli_error($conn);
-			}
-
-			// Close database connection
-			mysqli_close($conn);
-		}
-	?>
-
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-	<label for="name">Name:</label>
-	<input type="text" id="name" name="name" required><br><br>
-
-    <label for="room_id">Room:</label>
-    <select id="room_id" name="room_id" required>
-        <option value="">Select a room</option>
-        <?php foreach ($rooms as $room): ?>
-            <option value="<?php echo $room['id']; ?>"><?php echo $room['name']; ?></option>
-        <?php endforeach; ?>
-    </select><br><br>
-
-    <label for="sensor_id">Sensor:</label>
-    <select id="sensor_id" name="sensor_id" required>
-        <option value="">Select a sensor</option>
-        <?php foreach ($sensors as $sensor): ?>
-            <option value="<?php echo $sensor['id']; ?>"><?php echo $sensor['name'] . ' (' . $sensor['type'] . ')'; ?></option>
-        <?php endforeach; ?>
-    </select><br><br>
-
-    <input type="submit" value="Add Device">
+    <input type="submit" name="submit" value="Add Device">
 </form>
+
+<?php
+$conn->close();
+?>

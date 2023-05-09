@@ -13,41 +13,51 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Execute a SELECT query to retrieve the latest value and device name for each device from the sensor_readings table in your database
+// Execute a SELECT query to retrieve the latest value, device name, room name, sensors.name for each device from the sensor_readings table in your database
 $result = $conn->query("
-    SELECT devices.name AS device_name, sensor_readings.value AS value
+SELECT sr.value AS value, d.name AS device_name, r.name AS room_name, s.name AS sensor_name
+FROM sensor_readings sr
+JOIN devices d ON sr.device_id = d.id
+JOIN rooms r ON d.room_id = r.id
+JOIN sensors s ON d.sensor_id = s.id
+JOIN (
+    SELECT device_id, MAX(timestamp) AS latest_timestamp
     FROM sensor_readings
-    JOIN devices ON sensor_readings.device_id = devices.id
-    WHERE sensor_readings.timestamp IN (
-        SELECT MAX(timestamp)
-        FROM sensor_readings
-        GROUP BY device_id
-    )
+    GROUP BY device_id
+) AS latest ON sr.device_id = latest.device_id AND sr.timestamp = latest.latest_timestamp
+
 ");
 
 // Check if any rows were returned by the query
 if ($result->num_rows > 0) {
     // Output an HTML table to display the data
     echo "<table>";
-    echo "<tr><th>Device Name</th><th>Value</th></tr>";
+    echo "<tr><th>Device Name</th><th>Room</th><th>Value</th></tr>";
 
     // Loop through each row in the result set
     while ($row = $result->fetch_assoc()) {
         // Output a table row with the data from the current row
         $device_name = htmlspecialchars($row['device_name']);
+        $room_name = htmlspecialchars($row['room_name']);
         $value = htmlspecialchars($row['value']);
+        $sensor_name = htmlspecialchars($row['sensor_name']);
 
-        if ($device_name == "Camera 1" && ($value == 0 || $value == 1)) {
+        if ($sensor_name == "Two-mode text") {
             // Check if device_id is 1 and value is either 0 or 1
             if ($value == 1) {
-                echo "<tr><td>$device_name</td><td>ON</td></tr>";
+                $value = 'OPEN';
             } else {
-                echo "<tr><td>$device_name</td><td>OFF</td></tr>";
+                $value = 'CLOSE';
             }
         }
-        else{
-            echo "<tr><td>" . htmlspecialchars($row['device_name']) . "</td><td>" . htmlspecialchars($row['value']) . "</td></tr>";
+        elseif($sensor_name == "Two-mode number"){
+            if ($value == 1) {
+                $value = 'ON';
+            } else {
+                $value = 'OFF';
+            }
         }
+            echo "<tr><td>$device_name</td><td>$room_name</td><td>$value</td></tr>";
     }
     echo "</table>";
 } else {

@@ -1,8 +1,8 @@
 <?php
 // Define Adafruit IO 
-define('ADAFRUIT_IO_USERNAME', 'tysonnguyen1702');
-define('ADAFRUIT_IO_KEY', 'aio_heQv81idjSNPDAbemnpP7OIMl86f');
-$feed_names = ['welcome-feed', 'l-sensor', 'random-sensor'];
+define('ADAFRUIT_IO_USERNAME', 'QliShad');
+define('ADAFRUIT_IO_KEY', 'aio_lrid12IZA43nz4xSNacwwE9br4uN');
+
 
 // Define database credentials and connect to the database
 $db_host = 'localhost';
@@ -14,6 +14,16 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+//GET FEED_NAME LIST
+$sql = "SELECT feed_name FROM devices";
+$result = $conn->query($sql);
+
+$feed_names = array();
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $feed_names[] = $row["feed_name"];
+    }
 }
 
 // Loop through each feed and retrieve its data from Adafruit IO
@@ -39,28 +49,42 @@ foreach ($feed_names as $feed_name) {
         die("JSON decode error: " . json_last_error_msg() . "\nResponse: " . $response);
     }
 
-    // COMPARE DEVICE_ID WITH DEVICE_NAME
-    $datapoint = reset($data);
-    $value = $datapoint['value'];
-    $created_at = $datapoint['created_at'];
-    if ($feed_name == 'welcome-feed') {
-        $device_id = 2;
-    } elseif ($feed_name == 'l-sensor') {
-        $device_id = 3;
-    } elseif ($feed_name == 'random-sensor') {
-        $device_id = 1;
+    // GET DEVICE ID FROM DATABASE BASED ON DEVICE NAME
+    $stmt = $conn->prepare("SELECT id FROM devices WHERE feed_name = ?");
+    $stmt->bind_param("s", $feed_name);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $device_id = $row['id'];
     } else {
         $device_id = 0;
     }
+    $stmt->close();
+
+    // PROCESS DATA FOR DEVICE
+    $datapoint = reset($data);
+    $value = $datapoint['value'];
+    $created_at = $datapoint['created_at'];
+    if ($device_id == 2 && $value == 'CLOSE') {
+        $value = 0;
+    } elseif ($device_id == 2 && $value == 'OPEN') {
+        $value = 1;
+        }
 
     //GET DATA FROM DATABASE
     $stmt = $conn->prepare("SELECT timestamp, value FROM sensor_readings WHERE device_id = ? ORDER BY timestamp DESC LIMIT 1");
     $stmt->bind_param("i", $device_id);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
-    $latest_timestamp = $row['timestamp'];
-    $latest_value = $row['value'];
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $latest_timestamp = $row['timestamp'];
+        $latest_value = $row['value'];
+    }
+    else{
+        $latest_value = -1;
+    }
     $stmt->close();
 
     //CHECK LOOP DATA
