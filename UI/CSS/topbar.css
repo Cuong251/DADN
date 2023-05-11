@@ -1,0 +1,17 @@
+.navbar{
+    background-color:#7528A1;
+    font-size:4rem;
+}
+.topbar li{
+    padding-right: 10px;
+}
+.bi{
+    color:#7528A1;
+}
+.dropdown{
+    color:#7528A1;
+}
+.dropdown .dropdown-menu{
+    
+    font-size:2rem;
+}
