@@ -1,3 +1,4 @@
+<div class = "wrapper">
 <nav class="sidebar close" id="mySideBar">
         <header>
             <div class="image-text">
@@ -10,7 +11,7 @@
                     <span class="profession"></span>
                 </div>
             </div>
-            <div id="main"> 
+            <div id="btn-sideBar"> 
             <a href="javascript:void(0)" class='bx bx-chevron-right toggle' onclick="OpenOrClose()"></a> 
             </div>
         </header>
@@ -62,4 +63,5 @@
             </div>
         </div>
     </nav>
+</div>
  <!-- https://bootstrapious.com/p/bootstrap-sidebar  -->

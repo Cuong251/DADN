@@ -24,13 +24,14 @@
             include "$_SERVER[DOCUMENT_ROOT]/DADN/UI/PHP/Sidebar.php";
             include_once "$_SERVER[DOCUMENT_ROOT]/DADN/UI/config/dbconnect.php";
         ?>
- <div id="main-content" class="container allContent-section py-4" data-toggle="collapse">
+ <div id="main-content" class="container allContent-section py-4" data-toggle="collapse" data-toggle="collapse">
 
 
     </div>
   <script type="text/javascript" src="/DADN/js/Sidebar.js" ></script>    
   <script type="text/javascript" src="/DADN/js/ajaxWorks.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="https://getbootstrap.com/docs/4.0/assets/js/vendor/popper.min.js"  ></script>
 <script src="https://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"  ></script>
 <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
