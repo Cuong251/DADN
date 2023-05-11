@@ -18,10 +18,6 @@
         <div class="menu-bar">
             <div class="menu">
 
-                <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    <input type="text" placeholder="Search...">
-                </li>
 
                 <ul class="menu-links">
                     <li class="nav-link">
@@ -46,7 +42,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                    <a href="#viewUserProfile" onclick="showUserProfile()">
                             <i class='bx bx-user icon' ></i>
                             <span class="text nav-text">User Profile</span>
                         </a>
@@ -57,15 +53,13 @@
             </div>
 
             <div class="bottom-content">
-                <li class="">
+                <li class="nav-link">
                     <a href="#">
                         <i class='bx bx-log-out icon' ></i>
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>
-
-                
             </div>
         </div>
-
     </nav>
+ <!-- https://bootstrapious.com/p/bootstrap-sidebar  -->

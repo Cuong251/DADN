@@ -5,10 +5,10 @@
 ?>
     <link rel="stylesheet" href="/DADN/UI/CSS/Sidebar.css">     
  <!-- nav -->
- <header class="navbar navbar-light bg-light" style="background-color:var(--body-color);">
+ <header class="navbar navbar-light bg-light justify-content-end" style="background-color:var(--body-color);">
     
-<!-- As a heading -->
-<form class="form-inline my-2 my-lg-0">
+    <!-- As a heading -->
+    <form class="form-inline my-2 my-lg-0 ">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>    

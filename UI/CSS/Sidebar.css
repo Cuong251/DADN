@@ -39,7 +39,7 @@ body{
 
 /* ===== Sidebar ===== */
  .sidebar{
-    position: fixed;
+    position:fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -47,11 +47,10 @@ body{
     padding: 20px 14px;
     background: var(--sidebar-color);
     transition: var(--tran-05);
-    z-index: 100;  
-    border-radius: 100px;
+    z-index: 10000; 
 }
 .sidebar.close{
-    width: 88px;
+    width: 80px;
 }
 
 /* ===== Reusable code - Here ===== */
@@ -159,25 +158,6 @@ header .image-text .profession{
     margin-top: 40px;
 }
 
-.sidebar li.search-box{
-    border-radius: 6px;
-    background-color: var(--primary-color-light);
-    cursor: pointer;
-    transition: var(--tran-05);
-}
-
-.sidebar li.search-box input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    border: none;
-    background-color: var(--primary-color-light);
-    color: var(--text-color);
-    border-radius: 6px;
-    font-size: 17px;
-    font-weight: 500;
-    transition: var(--tran-05);
-}
 .sidebar li a{
     list-style: none;
     height: 100%;
@@ -189,6 +169,7 @@ header .image-text .profession{
     border-radius: 6px;
     text-decoration: none;
     transition: var(--tran-03);
+
 }
 
 .sidebar li a:hover{
@@ -204,7 +185,8 @@ header .image-text .profession{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    overflow-y: scroll;
+    float:center;
+
 }
 
 .sidebar .menu-bar .mode{
@@ -516,4 +498,11 @@ height: 56px;
 flex: none;
 order: 1;
 flex-grow: 0;
+}
+#main-content  {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+
+
 }

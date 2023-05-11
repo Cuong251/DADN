@@ -21,7 +21,7 @@ function showAddItems() {
 }
 function showUserProfile(){  
     $.ajax({
-        url:"./adminView/viewUserProfile.php",
+        url:"/DADN/UI/PHP/userProfile.php",
         method:"post",
         data:{record:1},
         success:function(data){
