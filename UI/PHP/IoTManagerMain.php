@@ -24,7 +24,7 @@
             include "$_SERVER[DOCUMENT_ROOT]/DADN/UI/PHP/Sidebar.php";
             include_once "$_SERVER[DOCUMENT_ROOT]/DADN/UI/config/dbconnect.php";
         ?>
- <div id="main-content" class="container allContent-section py-4" data-toggle="collapse" data-toggle="collapse">
+ <div id="main-content" class="container allContent-section py-4" data-toggle="collapse">
 
 
     </div>

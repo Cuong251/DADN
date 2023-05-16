@@ -48,7 +48,7 @@ body{
     background: var(--sidebar-color);
     transition: var(--tran-05);
     z-index: 10000; 
-    min-width: -250px;
+    max-width: -250px;
     max-width: 250px;
     min-height: 100vh;
 }
@@ -509,9 +509,6 @@ flex-grow: 0;
 }
 #main-content.container.allContent-section.py-4  {
     width: calc(100% - 250px - 250px);
+    /* margin-right: 20px; */
     /* fix overlap with sidebar by add width */
-}
-.wrapper {
-    display: flex;
-    width: 100%;
 }
