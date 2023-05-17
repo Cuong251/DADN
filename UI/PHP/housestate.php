@@ -214,24 +214,26 @@ $("#board").append("<div class='lightBox'> <label class='switch'>   <input type=
 </script>
 
 <script>
-     setInterval(function(){
-    $
-    const dataT = "<?php echo $resultTemp; ?>";
-    const result = document.getElementById("outTemp");
-    result.innerText = dataT+' C';
-},5000);
-$(document).ready(function(){
-  $("button").click(function(){
-    $.ajax({url: "demo_test.txt", success: function(result){
-      $("#div1").html(result);
-    }});
-  });
-});
-const dataF = "<?php echo $resultFan; ?>";
-$("#sliderT").roundSlider({value:dataF});
-
-
-
+    $(document).ready(setInterval(function() {
+    $.get('call.php', function(data) {
+      //do something with the data
+         var mydata=$.parseJSON(data);
+         $("#outTemp").html((mydata[0])+' C');
+	     var obj1 =  $("#sliderT").data("roundSlider");
+         obj1.setValue((mydata[1]));
+    });
+}, 2000));
 </script>
+
+
+<!-- <script>
+
+$(document).ready(function(){
+  $.ajax({url: "call.php", success: function(result){
+    var data=result;
+    $("#sliderT").roundSlider({value:data});
+    $("#div1").html(result);
+  }});})
+</script> -->
 
 </html>

@@ -13,14 +13,18 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 };
-        $result= $conn->query("
+        $result1= $conn->query("
         SELECT value from sensor_readings JOIN devices on devices.id = sensor_readings.device_id where devices.name='Temperature 1';   
         ");
-        $resultTemp = $result->fetch_array()[0] ?? '';
-        $result= $conn->query("
+        $resultTemp = $result1->fetch_array()[0] ?? '';
+        $result2= $conn->query("
         SELECT value from sensor_readings JOIN devices on devices.id = sensor_readings.device_id where devices.name='Fan 1';   
         ");
-        $resultFan = $result->fetch_array()[0] ?? '';
+        while ($resultFan = $result2->fetch_array() ) {
+            $result=$resultFan[0];
+            // do what you need.
+        }
         $conn->close();
-        echo $resultFan;
+        $arrayR=array(0=>$resultTemp,1=>$result);
+        echo json_encode($arrayR);
     ?>
