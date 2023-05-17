@@ -50,7 +50,7 @@
                     <div class="right">
 
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input id="checkTemp" type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
@@ -83,10 +83,6 @@
                     </div>
                     <div class="right">
 
-                        <label class="switch">
-                            <input type="checkbox" checked>
-                            <span class="slider round"></span>
-                        </label>
                     </div>
                 </div>
                 <div class="slider-container">
@@ -95,7 +91,7 @@
                 <div class="misc">
                     <div class="card">
                         <p>Outside Humidity </p>
-                        <span>78%</span>
+                        <span id="outHumid">78%</span>
                     </div>
 
                 </div>
@@ -119,31 +115,26 @@
                     <div class="right">
 
                         <label class="switch">
-                            <input type="checkbox" checked>
+                            <input id="checkLedA" type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
                     </div>
                 </div>
-                <div id="board">The Board is Empty, now add some div on it</div>
-
-<button id="btn_add">Add a Div</button>
-                <div class="lightBox" >
-                    <div class="switch-name">AAA</div>
+                <div class="lightBox">
+                    <div class="switch-name">Led 1</div>
                     <div class="switch-container">
-                <label class="switch">
-                            <input type="checkbox" checked>
+                        <label class="switch">
+                            <input id="checkLed1" type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
-</div>
-</div>
-                
+                    </div>
+                </div>
+            
+                    
             </div>
         </div>
     </div>
 
-    <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
-
-<button>Get External Content</button>
 
 
 </body>
@@ -168,11 +159,11 @@ $("#sliderT").roundSlider({
     startValue: 0,
     rangeColor: "#7A40F2",
     value: 28,
-    change: function (args) {
-        		console.log(args.value);
-                updateValue('yolo-fan',args.value);
-            $('#range').html(args.value);
-         }
+    change: function(args) {
+        console.log(args.value);
+        updateValue('yolo-fan', args.value);
+        $('#range').html(args.value);
+    }
 });
 
 $("#sliderH").roundSlider({
@@ -202,38 +193,87 @@ function updateValue(feedName, value) {
     // Update value on Adafruit IO
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-        }
+        if (this.readyState == 4 && this.status == 200) {}
     };
     xhttp.open("POST", "https://io.adafruit.com/api/v2/" + "QliShad" + "/feeds/" + feedName + "/data", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.setRequestHeader("X-AIO-Key", "aio_Erza91TD0vIdrfWO2Gkqip6h3E3f");
-    xhttp.send(JSON.stringify({value: value}));
+    xhttp.send(JSON.stringify({
+        value: value
+    }));
 }
 </script>
 <script>
-$(document).ready(function() {
-
-$("#btn_add").click(function() {
-$("#board").append("<div class='box'> Just added div </div>");
+$('#checkTemp').click(function() {
+    var checkbox = $('input[type="checkbox"]');
+    if ($(checkbox).prop('checked')) {
+        updateValue('yolo-fan', 0)
+        //do stuffs
+    } else {
+        updateValue('yolo-fan', 50)
+        //do stuffs
+    };
 });
 
+$('#checkLed1').click(function() {
+    var checkbox = $('input[type="checkbox"]');
+    if ($(checkbox).prop('checked')) {
+        updateValue('yolo-led', 0)
+        $('#checkLedA').prop('checked', false);
+        //do stuffs
+    } else {
+        updateValue('yolo-led', 1)
+        $('#checkLedA').prop('checked', true);
+        //do stuffs
+    };
+});
+
+$('#checkLedA').click(function() {
+    var checkbox = $('input[type="checkbox"]');
+    if ($(checkbox).prop('checked')) {
+        updateValue('yolo-led', 0)
+        $('#checkLed1').prop('checked', false);
+        //do stuffs
+    } else {
+        updateValue('yolo-led', 1)
+        $('#checkLed1').prop('checked', true);
+        //do stuffs
+    }
+});
+</script>
+<script>
+$(document).ready(function() {
+
+    $("#btn_add").click(function() {
+        $("#board").append("<div class='box'> Just added div </div>");
+    });
+
 });
 
 $(document).ready(function() {
-$("#board").append("<div class='lightBox'> <label class='switch'>   <input type='checkbox' checked>     <span class='slider round'></span>      </label> </div>");
+    $("#board").append(
+        "<div class='lightBox'> <label class='switch'>   <input type='checkbox' checked>     <span class='slider round'></span>      </label> </div>"
+        );
 
 });
 </script>
 
 <script>
-    $(document).ready(setInterval(function() {
+$(document).ready(setInterval(function() {
     $.get('call.php', function(data) {
-      //do something with the data
-         var mydata=$.parseJSON(data);
-         $("#outTemp").html((mydata[0])+' C');
-	     var obj1 =  $("#sliderT").data("roundSlider");
-         obj1.setValue((mydata[1]));
+        //do something with the data
+        var mydata = $.parseJSON(data);
+        $("#outTemp").html((mydata[0]) + ' C');
+        var obj1 = $("#sliderT").data("roundSlider");
+        obj1.setValue((mydata[1]));
+        if (mydata[1] == 0) $('#checkTemp').prop('checked', false);
+        var obj2 = $("#sliderH").data("roundSlider");
+        obj2.setValue((mydata[2]));
+        $("#outHumid").html((mydata[2]) + '%');
+        if (mydata[1] == 0) {
+            $('#checkLedA').prop('checked', false);
+            $('#checkLed1').prop('checked', false);
+        }
     });
 }, 2000));
 </script>
