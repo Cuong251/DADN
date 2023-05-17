@@ -147,6 +147,7 @@
 
 
 </body>
+
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/round-slider@1.6.1/dist/roundslider.min.js"></script>
 <script>
@@ -169,11 +170,8 @@ $("#sliderT").roundSlider({
     value: 28,
     change: function (args) {
         		console.log(args.value);
-                const result = document.getElementById("outTemp");
-                result.innerText = args.value+' C';
+                updateValue('yolo-fan',args.value);
             $('#range').html(args.value);
-            
-            updateValue(yolo-fan,args.value);
          }
 });
 
@@ -198,6 +196,21 @@ $("#sliderH").roundSlider({
 });
 </script>
 
+
+<script>
+function updateValue(feedName, value) {
+    // Update value on Adafruit IO
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        }
+    };
+    xhttp.open("POST", "https://io.adafruit.com/api/v2/" + "QliShad" + "/feeds/" + feedName + "/data", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.setRequestHeader("X-AIO-Key", "aio_Erza91TD0vIdrfWO2Gkqip6h3E3f");
+    xhttp.send(JSON.stringify({value: value}));
+}
+</script>
 <script>
 $(document).ready(function() {
 
@@ -224,7 +237,6 @@ $("#board").append("<div class='lightBox'> <label class='switch'>   <input type=
     });
 }, 2000));
 </script>
-
 
 <!-- <script>
 

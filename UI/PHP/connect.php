@@ -1,7 +1,7 @@
 <?php
 // Define Adafruit IO 
 define('ADAFRUIT_IO_USERNAME', 'QliShad');
-define('ADAFRUIT_IO_KEY', 'aio_qgzB81HSJ7aAgQOQN0NVUzBExOUl');
+define('ADAFRUIT_IO_KEY', 'aio_Erza91TD0vIdrfWO2Gkqip6h3E3f');
 
 
 // Define database credentials and connect to the database
