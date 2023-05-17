@@ -8,7 +8,8 @@
   if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
   }
-  $rows = mysqli_query($conn, "SELECT * FROM devices");
+  $query = "select d.id as id, d.name as device_name, d.feed_name as feed_name, inf.house_name as house_name , inf.room_name as room_name, s.name as sensor_name from devices d, sensors s, (select h.name as house_name, h.id as house_id, r.name as room_name, r.id as room_id from houses h join rooms r on r.house_id = h.id) as inf where d.room_id = inf.room_id and d.sensor_id = s.id;"; 
+  $rows = mysqli_query($conn, $query);
   $i = 1;
 ?>
 
@@ -35,22 +36,24 @@
       </caption>
       
 <tr class = "table-ele">
-      <th scope="col">ID</th>
+      <th scope="col">No</th>
       <th scope="col">Name</th>
       <th scope="col">Feed name</th>
+      <th scope="col">House</th>
       <th scope="col">Room</th>
       <th scope="col">Sensor</th>
-      <th scope="col" colspan="2" ></th>
+      <th scope="col" colspan="1" ></th>
     </tr>
   </thead>
   <tbody>
   <?php foreach($rows as $row) : ?>
-      <tr id = <?php echo $row["id"]; ?>>
+      <tr id = <?php echo $i; ?>>
         <td><?php echo $i++; ?></td>
-        <td><?php echo $row["name"]; ?></td>
+        <td><?php echo $row["device_name"]; ?></td>
         <td><?php echo $row["feed_name"]; ?></td>
-        <td><?php echo $row["room_id"]; ?></td>
-        <td><?php echo $row["sensor_id"]; ?></td>
+        <td><?php echo $row["house_name"]; ?></td>
+        <td><?php echo $row["room_name"]; ?></td>
+        <td><?php echo $row["sensor_name"]; ?></td>
         <td> <button type="button" id = "buttonIoTChange" onclick = "del(<?php echo $row['id']; ?>);" class="btn btn-light" data-toggle="modal" data-target=".bd-example-modal-lg" >
       <i class="bi bi-trash"></i>
       </button>     
