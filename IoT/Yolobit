@@ -1,0 +1,152 @@
+from yolobit import *
+button_a.on_pressed = None
+button_b.on_pressed = None
+button_a.on_pressed_ab = button_b.on_pressed_ab = -1
+from homebit3_lcd1602 import LCD1602
+from mqtt import *
+from homebit3_rgbled import RGBLed
+import time
+import music
+from machine import Pin, SoftI2C
+from homebit3_dht20 import DHT20
+from homebit3_ir_receiver import *
+from aiot_hcsr04 import HCSR04
+
+lcd1602 = LCD1602()
+
+tiny_rgb = RGBLed(pin0.pin, 4)
+
+def on_mqtt_message_receive_callback__yolo_led_(th_C3_B4ng_tin):
+  global t_C3_ADn_hi_E1_BB_87u, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC_DHT20, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t
+  if th_C3_B4ng_tin == '1':
+    tiny_rgb.show(0, hex_to_rgb('#ffffff'))
+    display.set_all('#ff0000')
+  else:
+    tiny_rgb.show(0, hex_to_rgb('#000000'))
+    display.set_all('#000000')
+
+def on_mqtt_message_receive_callback__yolo_fan_(th_C3_B4ng_tin):
+  global t_C3_ADn_hi_E1_BB_87u, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC_DHT20, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t
+  pin1.write_analog(round(translate((int(th_C3_B4ng_tin)), 0, 100, 0, 1023)))
+
+# Mô tả hàm này...
+def nh_E1_BA_ADp_m_E1_BA_ADt_kh_E1_BA_A9u():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  if button_a.is_pressed():
+    m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp = str(m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp) + 'A'
+    lcd1602.clear()
+    lcd1602.move_to(0, 0)
+    lcd1602.putstr(m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp)
+    time.sleep_ms(300)
+  if button_b.is_pressed():
+    m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp = str(m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp) + 'B'
+    lcd1602.clear()
+    lcd1602.move_to(0, 0)
+    lcd1602.putstr(m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp)
+    time.sleep_ms(300)
+  if len(m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp) == 4:
+    lcd1602.clear()
+    if m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp == m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t:
+      lcd1602.move_to(0, 0)
+      lcd1602.putstr('Xin Mời Vào')
+      mqtt.publish('yolo-door', 'OPEN')
+      music.play(music.POWER_UP, wait=True)
+      pin4.servo_write(90)
+      time.sleep_ms(3000)
+      pin4.servo_write(0)
+      time.sleep_ms(3000)
+    else:
+      lcd1602.move_to(0, 0)
+      lcd1602.putstr('Sai Mật Khẩu')
+      mqtt.publish('yolo-door', 'CLOSE')
+      music.play(music.POWER_DOWN, wait=True)
+    m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp = ''
+
+# Mô tả hàm này...
+def Gi_C3_A1m_S_C3_A1t__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t = (Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t if isinstance(Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, (int, float)) else 0) + 1
+  if Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t == 30:
+    Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t = 0
+    mqtt.publish('yolo-moisture', (pin2.read_analog()))
+
+dht20 = DHT20(SoftI2C(scl=Pin(22), sda=Pin(21)))
+
+# Mô tả hàm này...
+def _C4_90_E1_BB_8Dc_c_E1_BA_A3m_bi_E1_BA_BFn_DHT20():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  Chu_k_C3_AC_DHT20 = (Chu_k_C3_AC_DHT20 if isinstance(Chu_k_C3_AC_DHT20, (int, float)) else 0) + 1
+  if Chu_k_C3_AC_DHT20 == 10:
+    Chu_k_C3_AC_DHT20 = 0
+    dht20.read_dht20()
+    lcd1602.clear()
+    lcd1602.move_to(0, 0)
+    lcd1602.putstr((str(dht20.dht20_temperature()) + '*C'))
+    lcd1602.move_to(0, 1)
+    lcd1602.putstr((str(dht20.dht20_humidity()) + '%'))
+
+# Mô tả hàm này...
+def G_E1_BB_ADi_Nhi_E1_BB_87t__C4_90_E1_BB_99():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99 = (Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99 if isinstance(Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, (int, float)) else 0) + 1
+  if Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99 == 30:
+    Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99 = 0
+    display.scroll((temperature()))
+    mqtt.publish('yolo-temp', (temperature()))
+
+homebit3_ir_rx = IR_RX(Pin(pin6.pin, Pin.IN)); homebit3_ir_rx.start();
+
+def on_ir_receive_callback(t_C3_ADn_hi_E1_BB_87u, addr, ext):
+  global Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC_DHT20, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin
+  if t_C3_ADn_hi_E1_BB_87u == (IR_REMOTE_A):
+    display.scroll('A')
+  if t_C3_ADn_hi_E1_BB_87u == (IR_REMOTE_B):
+    display.scroll('B')
+
+homebit3_ir_rx.on_received(on_ir_receive_callback)
+
+# Mô tả hàm này...
+def R_E1_BB_ADa_Tay_T_E1_BB_B1__C4_90_E1_BB_99ng():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  aiot_ultrasonic = HCSR04(trigger_pin=pin10.pin, echo_pin=pin13.pin)
+  if aiot_ultrasonic.distance_cm() < 5:
+    pin14.write_analog(round(translate(70, 0, 100, 0, 1023)))
+    time.sleep_ms(3000)
+    pin14.write_analog(round(translate(0, 0, 100, 0, 1023)))
+  else:
+    pin14.write_analog(round(translate(0, 0, 100, 0, 1023)))
+  time.sleep_ms(100)
+
+# Mô tả hàm này...
+def G_E1_BB_ADi__C4_90_E1_BB_99__E1_BA_A8m():
+  global t_C3_ADn_hi_E1_BB_87u, Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t, Chu_k_C3_AC_DHT20, Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99, Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp, m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t, th_C3_B4ng_tin, homebit3_ir_rx, aiot_ultrasonic, lcd1602, dht20, tiny_rgb
+  Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m = (Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m if isinstance(Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m, (int, float)) else 0) + 1
+  if Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m == 30:
+    Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m = 0
+    mqtt.publish('dht20-humi', (dht20.dht20_humidity()))
+
+if True:
+  display.show(Image.HEART)
+  lcd1602.clear()
+  lcd1602.move_to(0, 0)
+  lcd1602.putstr('Hello')
+  Chu_k_C3_AC_DHT20 = 0
+  Chu_k_C3_AC_Nhi_E1_BB_87t__C4_91_E1_BB_99 = 0
+  Chu_K_C3_AC__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t = 0
+  Chu_k_C3_AC__C4_90_E1_BB_99__E1_BA_A9m = 0
+  m_E1_BA_ADt_kh_E1_BA_A9u_c_C3_A0i__C4_91_E1_BA_B7t = 'AABB'
+  m_E1_BA_ADt_kh_E1_BA_A9u__C4_91_C3_A3_nh_E1_BA_ADp = ''
+  mqtt.connect_wifi('Qli', '45738643')
+  mqtt.connect_broker(server='io.adafruit.com', port=1883, username='QliShad', password='aio_lrid12IZA43nz4xSNacwwE9br4uN')
+  mqtt.on_receive_message('yolo-led', on_mqtt_message_receive_callback__yolo_led_)
+  mqtt.on_receive_message('yolo-fan', on_mqtt_message_receive_callback__yolo_fan_)
+
+while True:
+  mqtt.check_message()
+  nh_E1_BA_ADp_m_E1_BA_ADt_kh_E1_BA_A9u()
+  G_E1_BB_ADi_Nhi_E1_BB_87t__C4_90_E1_BB_99()
+  G_E1_BB_ADi__C4_90_E1_BB_99__E1_BA_A8m()
+  _C4_90_E1_BB_8Dc_c_E1_BA_A3m_bi_E1_BA_BFn_DHT20()
+  Gi_C3_A1m_S_C3_A1t__C4_90_E1_BB_99__E1_BA_A8m__C4_90_E1_BA_A5t()
+  R_E1_BB_ADa_Tay_T_E1_BB_B1__C4_90_E1_BB_99ng()
+  time.sleep_ms(1000)
