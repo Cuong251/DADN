@@ -263,7 +263,7 @@
 
 <script>
     $(document).ready(setInterval(function() {
-        $.get('/DADN/UI/PHP/call.php', function(data) {
+        $.get('/DADN/IO_connect/call.php', function(data) {
             //do something with the data
             var mydata = $.parseJSON(data);
             $("#outTemp").html((mydata[0]) + ' C');
