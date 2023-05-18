@@ -29,6 +29,16 @@ function showUserProfile(){
         }
     });
 }
+function showHouse(){  
+    $.ajax({
+        url:"/DADN/UI/PHP/housestate.php",
+        method:"post",
+        data:{record:1},
+        success:function(data){
+            $('.allContent-section').html(data);
+        }
+    });
+}
 function search(id){
     $.ajax({
         url:"./controller/searchController.php",

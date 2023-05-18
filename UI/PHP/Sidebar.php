@@ -22,7 +22,7 @@
 
                 <ul class="menu-links">
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="/DADN/UI/PHP/housestate.php">
                             <i class='bx bx-home-alt icon' ></i>
                             <span class="text nav-text">Home Manager</span>
                         </a>

@@ -25,11 +25,16 @@
 }
 
 body{
-    min-height: 100vh;
     background-color: var(--body-color);
     transition: var(--tran-05);
 }
+#housestate {
 
+}
+
+.bi {
+color: #7A40F2;
+}
 ::selection{
     background-color: var(--primary-color);
     color: #fff;

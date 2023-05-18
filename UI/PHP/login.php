@@ -17,11 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id = $row['id'];
 
         // Redirect to the user.php page with the user's ID as a GET parameter
-        header("Location: user.php?id=$id");
+        header("Location: index.php?id=$id");
         exit;
     } else {
         // If the user's credentials are incorrect, display an error message
-        echo '<p style="color:red">Wrong username/password</p>';
+        echo '<script> alert("Wrong username/password"); </script>'; 
     }
 }
 ?>
@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="/DADN/UI/CSS/login.css">
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="background">
@@ -41,12 +43,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Welcome home</h1>
     <form method="POST">
         <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+            <label for="username"></label>
+            <input type="text" id="username" name = "username" placeholder="Username">
         </div>
         <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <label for="password"></label>
+            <input type="password" id="password" name = "password" placeholder="Password">
         </div>
         <button type="submit">LOGIN</button>
     </form>
