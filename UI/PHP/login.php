@@ -21,39 +21,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     } else {
         // If the user's credentials are incorrect, display an error message
-        echo '<p style="color:red">Wrong username/password</p>';
+        echo '<script> alert("Wrong username/password"); </script>';
     }
 }
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Login Page</title>
     <link rel="stylesheet" type="text/css" href="/DADN/UI/CSS/login.css">
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
+
 <body>
-<div class="background">
-    <img src="/DADN/UI/Imgs/login_background.jpg">
-</div>
-<div class="content">
-    <img src="/DADN/UI/Imgs/logo.png" alt="House Logo" class="logo">
-    <h1>Welcome home</h1>
-    <form method="POST">
-        <div class="input-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-        </div>
-        <div class="input-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <button type="submit">LOGIN</button>
-    </form>
-    <div class="links">
-        <a href="#">Forgot Password</a>
-        <a href="#">Sign up</a>
+    <div class="background">
+        <img src="/DADN/UI/Imgs/login_background.jpg">
     </div>
-</div>
+    <div class="content">
+        <img src="/DADN/UI/Imgs/logo.png" alt="House Logo" class="logo">
+        <h1>Welcome home</h1>
+        <form method="POST">
+            <div class="input-group">
+                <label for="username"></label>
+                <input type="text" id="username" name="username" placeholder="Username">
+            </div>
+            <div class="input-group">
+                <label for="password"></label>
+                <input type="password" id="password" name="password" placeholder="Password">
+            </div>
+            <button type="submit">LOGIN</button>
+        </form>
+        <div class="links">
+            <a href="#">Forgot Password</a>
+            <a href="#">Sign up</a>
+        </div>
+    </div>
 </body>
+
 </html>

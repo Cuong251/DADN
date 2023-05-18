@@ -1,0 +1,139 @@
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+  body{
+    background-color: #EAEAEA;
+    color: #565a6d;
+    font-weight:600;
+  }
+  section{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:100vh;
+    width:100%;
+  }
+  .widget{
+    display:none;
+    font-size: 32px;
+  }
+  .left{
+    
+  float:left;
+  }
+.humi-container{
+  
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.temp-container{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.slider-container{
+  font-size: 32px !important;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+  .widget{
+    width:80%;
+    background-image:linear-gradient(135deg,white,#eef0f7);
+    border-radius: 36px;
+  }
+  .container{
+    padding:30px;
+  }
+  .header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:58px
+  }
+  /* .header span{
+    position:relative;
+    font-size:12px; 
+    padding-left: 14px;
+    font-weight: 300;
+  }
+  .header span:before{
+    content: '';
+    position:absolute;
+    height:6px;
+    width: 6px;
+    top: calc(50%-3px);
+    left:0;
+    border-radius: 50%;
+    background-color: white;
+  } */
+  /* .header input{
+    position:absolute;
+    visibility: hidden;
+  } */
+  /* .header label{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    cursor:pointer;
+    width:32px;
+    background-image: linear-gradient(135deg,#f0f1fa,white);
+    border-radius:50%;
+  }
+  .header input:checked + label{
+    color:white;
+    background-image:linear-gradient(135deg,#97e3fe,#5eb5de);
+
+  } */
+  .rs-tooltip-text{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 52px;
+  }
+  .rs-tooltip-text:after{
+    content:"o";
+    position:relative;
+    font-size: 20px; 
+    top: -14px;
+    margin-right: -8px;
+  }
+  .rs-handle{
+    background-color: #5eb3de;
+    border: 12px solid white;
+  }
+
+.misc{
+  display:flex;
+  margin: 36px 0 14px;
+}
+
+.misc .card{
+    width:50%;
+    margin : 0 8px;
+    padding:8px 16px;
+    border-radius:12px;
+  }
+
+  .misc .card p{
+    font-size:12px;
+    font-weight:300;
+  }
+  .misc .card span{
+    font-size: 24px;
+  }
+
+  .lightBox{
+    
+    display: flex; align-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+    width:50%;
+    height: 60px;
+    border: 2px solid black;
+    border-radius: 20px;
+  }
