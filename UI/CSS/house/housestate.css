@@ -1,0 +1,27 @@
+
+.flex-container {
+    display: flex;
+  justify-content: space-around;
+  }
+  
+  .flex-container > div {
+    background-color: white;
+    margin: 50px;
+    padding: 50px;
+    height:200px;
+    width:20%;
+    font-size: 30px;
+    border-radius: 25px;
+    color: #7A40F2;
+    justify-content: center;
+    text-align: center;
+    display:flex;
+    align-items: center;
+  }
+  .flex-container > div >span {
+    color: #7A40F2;
+  }
+.bi {
+color: #7A40F2
+
+}
